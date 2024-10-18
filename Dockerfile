@@ -1,11 +1,11 @@
-FROM node:20.11.0-slim as builder
+# -- build frontend
+FROM node:20.11.0-slim AS builder
 
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
 
 # install pnpm dependencies
-
 RUN useradd -m ctf
 RUN mkdir -p /app $PNPM_HOME
 COPY . /app
@@ -14,6 +14,13 @@ WORKDIR /app
 RUN HOME=/home/ctf pnpm install --frozen-lockfile
 RUN pnpm build && rm -rf public-src *.cjs
 
+# -- production dependencies
+FROM builder AS prod-deps
+
+WORKDIR /app
+RUN pnpm install --prod --frozen-lockfile
+
+# -- final image
 FROM oven/bun:1.1.20-slim
 
 # install chromium dependencies
@@ -24,11 +31,11 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # copy the app
-COPY --from=builder /app /app
+COPY --from=prod-deps /app /app
 
 # copy the home directory for puppeteer
 RUN useradd -m ctf
-COPY --from=builder /home/ctf /home/ctf
+COPY --from=prod-deps /home/ctf /home/ctf
 
 
 USER ctf
