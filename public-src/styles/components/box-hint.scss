@@ -1,0 +1,24 @@
+@use "@/styles/variables.scss" as *;
+
+
+.hint {
+    cursor: default;
+
+
+    .__hint-title,
+    .__hint-text {
+        width: 100%;
+        text-align: center;
+        margin: 10px 0;
+    }
+
+    .__hint-title {
+        font-size: 36px;
+        color: $extra-color;
+        font-weight: 600;
+    }
+
+    .__hint-text {
+        color: #8d6e63;
+    }
+}

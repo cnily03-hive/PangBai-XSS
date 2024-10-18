@@ -1,0 +1,71 @@
+@use "@/styles/variables.scss" as *;
+@use "@/styles/components/basic.scss" as *;
+@use "@/styles/components/background.scss" as *;
+@use "@/styles/components/grid-view.scss" as * with ($full-center: false,
+    $top: $view-top,
+);
+@use "@/styles/components/box-hint.scss" as *;
+@use "@/styles/components/box-btn.scss" as *;
+@use "@/styles/utils/scroll.scss" as *;
+
+.list {
+    width: 100%;
+    max-height: 80vh;
+    box-sizing: border-box;
+    color: $primary-color-dark;
+    text-decoration: none;
+    word-break: break-word;
+    white-space: normal;
+    font-family: $mail-font-family;
+    height: max(20em, calc(100vh - $view-top - 30em));
+    overflow: auto;
+    @include scroll(#{rgba($primary-color, .3)}, #{rgba($primary-color, .5)});
+
+    [data-empty] {
+        display: inline-block;
+        width: 100%;
+        text-align: center;
+        cursor: help;
+    }
+
+    &:has(ul>li) [data-empty] {
+        display: none;
+    }
+
+    &:not(:has(ul>li)) {
+        ul {
+            display: none;
+        }
+    }
+
+    // @media screen and (max-width: 768px) {
+    //     height: max(10em, calc(100vh - $view-top - 25em));
+    // }
+
+    // @media screen and (max-width: 512px) {
+    //     height: max(10em, calc(100vh - $view-top - 20em));
+    // }
+
+    ul {
+        padding-inline-start: 1.5em;
+
+        li {
+            margin: .5em 0;
+            cursor: pointer;
+            transform: translateX(0);
+            transition: color .2s, transform .2s;
+
+            &:hover {
+                color: $primary-color;
+                transform: translateX(-0.2em);
+            }
+        }
+
+        @include scroll(#{rgba($primary-color, .3)}, #{rgba($primary-color, .5)});
+    }
+
+    a {
+        color: inherit;
+        text-decoration: inherit;
+    }
+}

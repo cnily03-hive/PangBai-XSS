@@ -1,0 +1,19 @@
+.background {
+    opacity: 0.15;
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    z-index: -1;
+    display: flex;
+    justify-content: center;
+}
+
+.background .bg-img {
+    display: block;
+    background-image: url("../images/pangbai.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100vh;
+    width: 100vh;
+}

@@ -1,0 +1,59 @@
+@use "@/styles/variables.scss" as *;
+
+.btn {
+    background-color: #{rgba($secondary-color, 0.3)};
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    font-size: 18px;
+    padding: 6px 8px;
+    color: $primary-color;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.1em;
+    border-width: 1px;
+    border-style: solid;
+    border-color: $secondary-color-dark;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s, color 0.2s;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+
+    &:hover {
+        background-color: #{rgba($secondary-color-dark, 0.3)};
+    }
+
+    &:active {
+        background-color: #{rgba($secondary-color-dark, 0.3)};
+        border-color: #8d6e63;
+        box-shadow: 0 0 0 0.1rem #{rgba($primary-color, 0.2)};
+    }
+
+    .icon {
+        margin-right: 8px;
+        height: 18px;
+    }
+}
+
+.btn {
+    &.btn-large {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+.button-group {
+    display: flex;
+
+    &.with-gap {
+        gap: 8px;
+    }
+
+    &.with-vertical {
+        flex-direction: column;
+    }
+}

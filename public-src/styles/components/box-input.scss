@@ -1,0 +1,68 @@
+@use "@/styles/variables.scss" as *;
+@use "@/styles/utils/scroll.scss" as *;
+
+
+.input-group {
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+.input-group>* {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    display: inline-block;
+}
+
+.input-group label {
+    color: $primary-color;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    margin: 4px 0;
+}
+
+[name='title'],
+[name='content'] {
+    font-size: 18px;
+    padding: 6px 8px;
+    color: $primary-color-dark;
+    outline: none;
+    background-color: #{rgba($secondary-color, 0.3)};
+    border-radius: 0.1em;
+    border-width: 1px;
+    border-style: solid;
+    border-color: $secondary-color-dark;
+    transition: border-color 0.2s, box-shadow 0.2s, color 0.2s;
+    width: 100%;
+    max-width: 100%;
+    font-family: $mail-font-family;
+
+    &::placeholder {
+        color: $secondary-color-dark;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+
+    &:focus {
+        border-color: $primary-color;
+        box-shadow: 0 0 0 0.1rem #{rgba($primary-color, 0.2)};
+    }
+}
+
+[name='title'] {
+    height: 2.1em;
+}
+
+div[name='title'] {
+    display: flex;
+    align-items: center;
+}
+
+[name='content'] {
+    resize: none;
+    height: 20em;
+    overflow: auto;
+    @include scroll(#{rgba($primary-color, .3)}, #{rgba($primary-color, .5)});
+}

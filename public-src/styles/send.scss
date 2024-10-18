@@ -1,0 +1,12 @@
+@use "@/styles/variables.scss" as *;
+@use "@/styles/components/basic.scss" as *;
+@use "@/styles/components/background.scss" as *;
+@use "@/styles/components/grid-view.scss" as * with (
+    $full-center: false,
+    $top: $view-top,
+);
+@use "@/styles/components/box-hint.scss" as *;
+@use "@/styles/components/box-btn.scss" as *;
+@use "@/styles/components/box-input.scss" as *;
+
+@use "@/styles/components/message.scss" as *;

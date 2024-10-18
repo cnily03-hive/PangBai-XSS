@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ sub_title }} - {{ page_title }}</title>
+    <link rel="stylesheet" href="/assets/letter.bundle.css">
+    <script type="text/javascript" src="/assets/letter.bundle.js"></script>
+</head>
+
+<body>
+    <div class="background">
+        <div class="bg-img"></div>
+    </div>
+    <div class="view">
+        <div class="box">
+            <div class="hint">
+                <div class="__hint-title">To: PangBai</div>
+                <div class="__hint-text">{{ hint_text }}</div>
+            </div>
+            <div class="input" data-id="{{ id }}" data-error="{{ error || '' }}">
+                <div class="input-group">
+                    <label><span>标题</span></label>
+                    <div name="title">{{@ data['title'] }}</div>
+                </div>
+                <div class="input-group">
+                    <label><span>内容</span></label>
+                    <div name="content">{{@ data['content'] }}</div>
+                </div>
+                <div class="button-group with-vertical with-gap">
+                    <a class="btn btn-large" href="/box" target="_self">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" style="transform: scale(1);"
+                            viewBox="0 0 48 48">
+                            <path fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="4"
+                                d="M44 40.836q-7.34-8.96-13.036-10.168t-10.846-.365V41L4 23.545L20.118 7v10.167q9.523.075 16.192 6.833q6.668 6.758 7.69 16.836Z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <span>返回信箱</span>
+                    </a>
+                    <a class="btn btn-large" href="javascript:void 0" target="_self" id="call">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" style="transform: scale(1.1);"
+                            viewBox="0 0 24 24">
+                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M5 17h2m0 0h10M7 17v-6a5 5 0 0 1 10 0v6m0 0h2M11.5 5.5V4a.5.5 0 0 1 1 0v1.5M13 20a1 1 0 1 1-2 0z" />
+                        </svg>
+                        <span>提醒 PangBai</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

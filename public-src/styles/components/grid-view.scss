@@ -1,0 +1,29 @@
+$full-center: true !default;
+$top: 0 !default;
+
+
+.view {
+    min-height: 100vh;
+    width: 100%;
+    display: grid;
+    position: relative;
+    z-index: 0;
+    font-size: 18px;
+    box-sizing: border-box;
+
+    @if $full-center == true {
+        place-items: center;
+    }
+    @else {
+        justify-content: center;
+        padding-top: $top;
+    }
+
+    .box {
+        width: 85vw;
+        max-width: 600px;
+        & > * {
+            margin: 36px 10px;
+        }
+    }
+}

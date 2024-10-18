@@ -1,0 +1,113 @@
+@use "@/styles/variables.scss" as *;
+
+.message-box {
+    display: flex;
+    flex-direction: column;
+    $gap: 16px;
+    gap: $gap;
+    position: fixed;
+    top: 24px;
+    pointer-events: none;
+    width: 100%;
+    z-index: 1000;
+    box-sizing: border-box;
+    align-items: center;
+
+    .message__layer {
+
+        $from-opacity: 0;
+        $from-height: 0;
+        $from-margin-bottom: -$gap;
+        $from-transform: translateY(-36px);
+        $to-opacity: 1;
+        $to-height: var(--height, auto);
+        $to-margin-bottom: 0;
+        $to-transform: translateY(0);
+
+        opacity: $to-opacity;
+        height: $to-height;
+        margin-bottom: $to-margin-bottom;
+        transform: $to-transform;
+
+        transition:
+            opacity var(--fade-duration, 0.35s) ease,
+            margin-bottom var(--fade-duration, 0.35s) ease,
+            transform var(--fade-duration, 0.35s) ease,
+            height var(--fade-duration, 0.35s) ease;
+
+        animation: message-fade-in var(--fade-duration, 0.35s) ease;
+
+        &.message__layer--fade-out {
+            opacity: $from-opacity;
+            height: $from-height;
+            margin-bottom: $from-margin-bottom;
+            transform: $from-transform;
+        }
+
+        @keyframes message-fade-in {
+            from {
+                opacity: $from-opacity;
+                height: $from-height;
+                margin-bottom: $from-margin-bottom;
+                transform: $from-transform;
+            }
+
+            to {
+                opacity: $to-opacity;
+                height: $to-height;
+                margin-bottom: $to-margin-bottom;
+                transform: $to-transform;
+            }
+        }
+    }
+
+    .message {
+        text-align: inherit;
+        pointer-events: initial;
+        display: block;
+        position: relative;
+        z-index: 1002;
+        margin: 0 auto;
+        min-width: max-content;
+        max-width: 36rem;
+        background-color: var(--message-background-color, #fff);
+        border-color: var(--message-border-color, none);
+        border-width: 1px;
+        border-style: var(--message-border-style, solid);
+        border-radius: 4px;
+        font-size: 14px;
+        color: var(--message-font-color, $primary-color);
+        box-sizing: border-box;
+        padding: 8px 12px;
+        box-shadow: var(--message-box-shadow, 0 0 10px rgba(0, 0, 0, .2));
+
+        .message__content {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            i.message__icon {
+                display: inline-block;
+                margin-right: 8px;
+                font-size: 14px;
+                line-height: 1;
+                color: var(--message-font-color, $primary-color);
+                width: 15px;
+                height: 15px;
+            }
+
+            p {
+                display: inline-block;
+                margin: .5em 0;
+
+                &:not(p+p) {
+                    margin-top: 0;
+                }
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+}

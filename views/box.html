@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ sub_title }} - {{ page_title }}</title>
+    <link rel="stylesheet" href="/assets/box.bundle.css">
+    <script type="text/javascript" src="/assets/box.bundle.js"></script>
+</head>
+
+<body>
+    <div class="background">
+        <div class="bg-img"></div>
+    </div>
+    <div class="view">
+        <div class="box">
+            <div class="hint">
+                <div class="__hint-title">PangBai's Mailbox</div>
+                <div class="__hint-text">{{ hint_text }}</div>
+            </div>
+            <div class="list">
+                <span data-empty title="快给 PangBai 写封信吧 ~">还没有信件呢～</span>
+                <ul>
+                    {{ each letters }}
+                    <li><a href="/box/{{ $value['id'] }}" target="_self">{{ $value['title'] }}</a></li>
+                    {{ /each }}
+                </ul>
+            </div>
+            <div class="button-group with-vertical with-gap">
+                <a class="btn btn-large" href="/send" target="_self">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" style="transform: scale(1.2);"
+                        viewBox="0 0 32 32">
+                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M29 9v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9m26 0a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2m26 0l-11.862 8.212a2 2 0 0 1-2.276 0L3 9" />
+                    </svg>
+                    <span>写一封信</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
