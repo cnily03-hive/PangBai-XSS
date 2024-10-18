@@ -1,0 +1,65 @@
+name: Test
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: pnpm/action-setup@v4
+      with:
+        version: 8
+        run_install: false
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'pnpm'
+
+    - name: Install dependencies
+      run: pnpm install
+
+    - name: Build web resources
+      run: pnpm build
+
+  dry-run:
+    name: Dry run
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: pnpm/action-setup@v4
+      with:
+        version: 8
+        run_install: false
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'pnpm'
+
+    - name: Install production dependencies
+      run: pnpm install --prod
+
+    - uses: oven-sh/setup-bun@v2
+
+    - name: Test dry run
+      run: |
+        timeout 5s bun start || if [ $? -eq 124 ]; then exit 0; else exit 1; fi

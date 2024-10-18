@@ -1,0 +1,49 @@
+FROM node:20.11.0-slim as builder
+
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
+
+# install pnpm dependencies
+RUN useradd -m ctf
+RUN mkdir -p /app $PNPM_HOME
+COPY . /app
+WORKDIR /app
+
+RUN HOME=/home/ctf pnpm install --frozen-lockfile
+RUN pnpm build && rm -rf public-src *.cjs
+
+FROM builder AS fetch
+RUN apt update && apt install -y curl
+RUN curl -fsSL https://gist.githubusercontent.com/Cnily03/4d4a8a1f2ba63328a9543c82b73a677c/raw/52987d559dce12729d1e968d8433b4ffb4c959c7/mvval.sh -o /usr/local/bin/mvval.sh
+
+FROM oven/bun:1.1.20-slim
+
+# install chromium dependencies
+RUN apt-get update && \
+    DEPS=$(apt-get install --no-install-recommends -s chromium | grep "Inst" | awk '{print $2}' | grep -v "chromium") && \
+    apt-get install -y --no-install-recommends $DEPS && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# copy the home directory for puppeteer
+RUN useradd -m ctf
+COPY --from=builder /home/ctf /home/ctf
+
+# copy the app
+COPY --chown=ctf:ctf --from=builder /app /app
+
+# copy the script
+COPY --from=fetch /usr/local/bin/mvval.sh /usr/local/bin/mvval.sh
+RUN chmod +x /usr/local/bin/mvval.sh
+
+USER ctf
+WORKDIR /app
+ENV FLAG="flag{test_flag}"
+ENV NODE_ENV=production
+
+ENTRYPOINT [ "/usr/local/bin/mvval.sh", "--type=env", "--name=ICQ_FLAG:FLAG", "--user=ctf", "--", "/usr/local/bin/docker-entrypoint.sh" ]
+# restart the server if it crashes
+CMD [ "sh", "-c", "while :; do bun start; sleep 1; done" ]
+
+EXPOSE 3000
